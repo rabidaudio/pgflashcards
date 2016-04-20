@@ -1,26 +1,28 @@
 'use strict';
-var React = require('react');
+const React = require('react');
 
-var Flashcard = React.createClass({
-  getInitialState: function() {
-    return {front: true}
-  },
-  flip: function() {
+class Flashcard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {front: true}
+    this.flip = this.flip.bind(this);
+  }
+  flip() {
     this.setState({front: !this.state.front});
-  },
-  componentDidMount: function(){
+  }
+  componentDidMount(){
     key('space', this.flip);
-  },
-  componentWillUnmount: function(){
+  }
+  componentWillUnmount(){
     key.unbind('space');
-  },
-  render: function() {
+  }
+  render() {
     return (
       <h1 onClick={this.flip}>
           {this.state.front ? this.props.question : this.props.answer}
       </h1>
     );
   }
-});
+}
 
-module.exports = Flashcard;
+module.exports = Flashcard

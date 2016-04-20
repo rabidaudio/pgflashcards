@@ -1,29 +1,31 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+'use strict';
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-var Flashcard = require('./flashcard')
+const Flashcard = require('./flashcard');
 
-var ViewCardApp = React.createClass({
-  getInitialState: function() {
-    return {cards: [
+class ViewCardApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {cards: [
         {question: "Where are the coconuts?", "answer": "idk"}
-      ], index: 0}
-  },
-
-  onNext: function(e) {
+      ], index: 0};
+      this.onNext.bind(this);
+  }
+  onNext(e) {
     this.setState({index: this.state.index+1});
-  },
-
-
-  render: function() {
-    var card = this.state.cards[this.state.index];
+  }
+  getCard(){
+    return this.state.cards[this.state.index];
+  }
+  render() {
     return (
       <div>
-        <Flashcard {...card} />
+        <Flashcard {...this.getCard()} />
       </div>
     );
   }
-});
+}
 
 
 ReactDOM.render(<ViewCardApp />, document.getElementById('content'));
