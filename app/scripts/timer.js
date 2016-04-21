@@ -1,5 +1,3 @@
-
-// var React = require('react');
 import React from 'react';
 
 const Timer = React.createClass({
@@ -22,5 +20,4 @@ const Timer = React.createClass({
   }
 });
 
-// module.exports = Timer;
 export default Timer;

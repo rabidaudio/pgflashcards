@@ -6,25 +6,16 @@ import Flashcard from './flashcard';
 class ViewCardApp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {cards: [
-        {question: 'Where are the coconuts?', answer: 'idk'}
-      ], index: 0};
-      this.onNext.bind(this);
   }
-  onNext() {
-    this.setState({index: this.state.index + 1});
-  }
-  getCard(){
-    return this.state.cards[this.state.index];
-  }
+
   render() {
-    return (
-      <div>
-        <Flashcard {...this.getCard()} />
-      </div>
-    );
+    var cards = [
+      {question: 'What is your name?', answer: 'Sir Lancelot of Camelot'},
+      {question: 'What is your quest?', answer: 'To seek the Holy Grail'},
+      {question: 'What is your favorite color?', answer: 'Blue'},
+    ];
+    return (<Flashcard cards={cards} />);
   }
 }
-
 
 ReactDOM.render(<ViewCardApp />, document.getElementById('content'));
