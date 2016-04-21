@@ -1,20 +1,19 @@
-'use strict';
-const React = require('react');
+import React from 'react';
 
 class Flashcard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {front: true}
+    this.state = {front: true};
     this.flip = this.flip.bind(this);
   }
   flip() {
     this.setState({front: !this.state.front});
   }
   componentDidMount(){
-    key('space', this.flip);
+    // key('space', this.flip);
   }
   componentWillUnmount(){
-    key.unbind('space');
+    // key.unbind('space');
   }
   render() {
     return (
@@ -25,4 +24,4 @@ class Flashcard extends React.Component {
   }
 }
 
-module.exports = Flashcard
+export default Flashcard;

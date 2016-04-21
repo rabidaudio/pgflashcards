@@ -1,22 +1,22 @@
 {
-  "name": "pgflashcards2",
-  "description": "",
-  "main": "index.js",
-  "authors": [
-    "Charles Julian Knight <charles@rabidaudio.com>"
-  ],
-  "license": "ISC",
-  "moduleType": [],
-  "homepage": "",
+  "name": "pgflashcards",
   "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
   "dependencies": {
-    "keymaster": "^1.6.3"
+    "bootstrap-sass": "~3.3.5",
+    "keymaster": "^1.6.3",
+    "modernizr": "~2.8.1"
+  },
+  "overrides": {
+    "bootstrap-sass": {
+      "main": [
+        "assets/stylesheets/_bootstrap.scss",
+        "assets/fonts/bootstrap/*",
+        "assets/javascripts/bootstrap.js"
+      ]
+    }
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
   }
 }

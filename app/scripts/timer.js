@@ -1,8 +1,8 @@
-'use strict';
 
-var React = require('react');
+// var React = require('react');
+import React from 'react';
 
-var Timer = React.createClass({
+const Timer = React.createClass({
   getInitialState: function() {
     return {secondsElapsed: 0};
   },
@@ -22,4 +22,5 @@ var Timer = React.createClass({
   }
 });
 
-module.exports = Timer;
+// module.exports = Timer;
+export default Timer;

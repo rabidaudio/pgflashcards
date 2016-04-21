@@ -1,19 +1,18 @@
-'use strict';
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const Flashcard = require('./flashcard');
+import Flashcard from './flashcard';
 
 class ViewCardApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {cards: [
-        {question: "Where are the coconuts?", "answer": "idk"}
+        {question: 'Where are the coconuts?', answer: 'idk'}
       ], index: 0};
       this.onNext.bind(this);
   }
-  onNext(e) {
-    this.setState({index: this.state.index+1});
+  onNext() {
+    this.setState({index: this.state.index + 1});
   }
   getCard(){
     return this.state.cards[this.state.index];
