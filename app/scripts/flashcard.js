@@ -46,9 +46,9 @@ export default class Flashcard extends React.Component {
 
   render() {
     const card = this.getCard();
-    let classes = "flashcard";
+    let classes = 'flashcard';
     if(!this.state.front){
-      classes += " back";
+      classes += ' back';
     }
     return (
       <SwipeListener onSwipeLeft={this.next} onSwipeRight={this.prev} onTap={this.flip}>
