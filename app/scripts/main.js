@@ -80,11 +80,11 @@ class ViewCardApp extends React.Component {
   }
 }
 
-let pageId = window.location.hash.substring(1);
+let pageId = window.location.pathname.substring(1); //.hash.substring(1);
 
 if(pageId.length < 1){
   pageId = (new Date()).getTime().toString();
-  window.location.hash = pageId;
+  window.location.pathname = pageId; //.hash = pageId;
 }
 
 const fb = new Firebase('https://pgflashcards.firebaseio.com');
