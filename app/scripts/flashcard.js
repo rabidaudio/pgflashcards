@@ -51,7 +51,7 @@ export default class Flashcard extends React.Component {
       classes += " back";
     }
     return (
-      <SwipeListener onSwipeLeft={this.next} onSwipeRight={this.prev} onClick={this.flip}>
+      <SwipeListener onSwipeLeft={this.next} onSwipeRight={this.prev} onTap={this.flip}>
         <div className={classes}>
           <h1>{this.state.front ? card.question : card.answer}</h1>
           <Countdown start={15} running={this.state.front} />
