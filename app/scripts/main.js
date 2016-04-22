@@ -92,7 +92,12 @@ const fb = new Firebase('https://pgflashcards.firebaseio.com');
 fb.child('.info/connected').on('value', snapshot => {
   if(!snapshot.val()){
     console.warn('No connection, falling back to local storage');
-    render(JSON.parse(window.localStorage[pageId]));
+    const state = window.localStorage[pageId];
+    if(state){
+      render(JSON.parse(state));
+    }else{
+      render([]);
+    }
   }else{
     console.log('connected to Firebase');
   }
