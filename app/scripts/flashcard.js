@@ -1,5 +1,5 @@
 import React from 'react';
-import Keypress from 'keypress.js'
+import Keypress from 'keypress.js';
 
 import SwipeListener from './swipe_listener';
 import Countdown from './countdown';
@@ -20,7 +20,7 @@ export default class Flashcard extends React.Component {
   }
   componentDidMount(){
     this.keyListener.simple_combo('space', this.flip);
-    this.keyListener.simple_combo('left',  this.prev);
+    this.keyListener.simple_combo('left', this.prev);
     this.keyListener.simple_combo('right', this.next);
   }
   componentWillUnmount(){

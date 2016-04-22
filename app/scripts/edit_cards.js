@@ -11,7 +11,7 @@ class EditCard extends React.Component {
     this.props.onUpdate(this.props.cardId, {question: e.target.value, answer: this.props.answer});
   }
   onAnswerChange(e){
-    this.setState({rows: Math.max(e.target.value.split("\n").length + 2, 4) });
+    this.setState({rows: Math.max(e.target.value.split('\n').length + 2, 4) });
     this.props.onUpdate(this.props.cardId, {question: this.props.question, answer: e.target.value});
   }
   render(){
@@ -44,7 +44,7 @@ export default class EditCards extends React.Component {
         <div><a onClick={this.deleteAll}>Delete All</a></div>
         {Object.keys(this.props.cards).map(k => {
           const card = this.props.cards[k];
-          return <EditCard {...card} key={k} cardId={k} onUpdate={this.props.onUpdate} onDestroy={this.props.onDestroy} />
+          return (<EditCard {...card} key={k} cardId={k} onUpdate={this.props.onUpdate} onDestroy={this.props.onDestroy} />);
         })}
         <div><a onClick={this.props.onAdd}>Add</a></div>
       </div>

@@ -91,18 +91,22 @@ const fb = new Firebase('https://pgflashcards.firebaseio.com');
 
 fb.child('.info/connected').on('value', snapshot => {
   if(!snapshot.val()){
-    console.warn("No connection, falling back to local storage");
+    console.warn('No connection, falling back to local storage');
     render(JSON.parse(window.localStorage[pageId]));
   }else{
-    console.log("connected to Firebase");
+    console.log('connected to Firebase');
   }
 });
 
 const db = fb.child(pageId);
 
-db.once('value', snapshot => {
-  let cards = snapshot.val();
-  if(cards === null){
+function render(cards){
+  ReactDOM.render(<ViewCardApp db={db} cards={cards || []} />, document.getElementById('container'));
+}
+
+db.once('value', firstSnapshot => {
+  let firstCards = firstSnapshot.val();
+  if(firstCards === null){
     defaultQuestions.forEach(q => {
       db.push({question: q, answer: ''});
     });
@@ -113,7 +117,3 @@ db.once('value', snapshot => {
     render(cards);
   });
 });
-
-function render(cards){
-  ReactDOM.render(<ViewCardApp db={db} cards={cards || []} />, document.getElementById('container'));
-}
