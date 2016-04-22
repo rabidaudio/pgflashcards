@@ -45,6 +45,9 @@ export default class Flashcard extends React.Component {
   }
 
   render() {
+    if(this.props.cards.length === 0){
+      return null;
+    }
     const card = this.getCard();
     return (
       <SwipeListener onSwipeLeft={this.next} onSwipeRight={this.prev} onTap={this.flip}>

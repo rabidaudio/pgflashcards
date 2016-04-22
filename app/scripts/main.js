@@ -20,13 +20,32 @@ class ViewCardApp extends React.Component {
     this.setState({page: name});
   }
   onEdit(cardId, val){
-    this.props.db.child(cardId).set(val);
+    if(this.props.db){
+      this.props.db.child(cardId).set(val);
+    // }else{
+      // let state = JSON.parse(window.localStorage[pageId]);
+      // state[cardId] = val;
+      // window.localStorage[pageId] = JSON.stringify(state);
+    }
   }
   onAdd(){
-    this.props.db.push({question: '', answer: ''});
+    const newItem = {question: '', answer: ''};
+    if(this.props.db){
+      this.props.db.push(newItem);
+    // }else{
+      // let state = JSON.parse(window.localStorage[pageId]);
+      // state.push(newItem);
+      // window.localStorage[pageId] = JSON.stringify(state);
+    }
   }
   onDestroy(cardId){
-    this.props.db.child(cardId).remove();
+    if(this.props.db){
+      this.props.db.child(cardId).remove();
+    }else{
+      let state = JSON.parse(window.localStorage[pageId]);
+      state[cardId] = undefined;
+      window.localStorage[pageId] = JSON.stringify(state);
+    }
   }
 
   render() {
@@ -68,7 +87,18 @@ if(pageId.length < 1){
   window.location.hash = pageId;
 }
 
-const db = new Firebase('https://pgflashcards.firebaseio.com').child(pageId);
+const fb = new Firebase('https://pgflashcards.firebaseio.com');
+
+fb.child('.info/connected').on('value', snapshot => {
+  if(!snapshot.val()){
+    console.warn("No connection, falling back to local storage");
+    render(JSON.parse(window.localStorage[pageId]));
+  }else{
+    console.log("connected to Firebase");
+  }
+});
+
+const db = fb.child(pageId);
 
 db.once('value', snapshot => {
   let cards = snapshot.val();
@@ -78,6 +108,12 @@ db.once('value', snapshot => {
     });
   }
   db.on('value', snapshot => {
-    ReactDOM.render(<ViewCardApp db={db} cards={snapshot.val() || []} />, document.getElementById('container'));
+    const cards = snapshot.val();
+    localStorage[pageId] = JSON.stringify(cards);
+    render(cards);
   });
 });
+
+function render(cards){
+  ReactDOM.render(<ViewCardApp db={db} cards={cards || []} />, document.getElementById('container'));
+}
