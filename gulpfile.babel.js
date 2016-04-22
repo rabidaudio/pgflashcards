@@ -5,6 +5,7 @@ import browserSync from 'browser-sync';
 import del from 'del';
 import {stream as wiredep} from 'wiredep';
 import webpack from 'webpack-stream';
+import modRewrite from 'connect-modrewrite';
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -106,7 +107,12 @@ gulp.task('serve', ['styles', 'scripts', 'fonts'], () => {
       baseDir: ['.tmp', 'app'],
       routes: {
         '/bower_components': 'bower_components'
-      }
+      },
+      middleware: [
+        //single-page app:
+        //  https://github.com/BrowserSync/browser-sync/issues/204#issuecomment-212183745
+        modRewrite(['!\\.\\w+$ /index.html [L]'])
+      ]
     }
   });
 
