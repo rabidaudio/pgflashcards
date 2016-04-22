@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Firebase from 'firebase';
 
 import Flashcard from './flashcard';
 import EditCards from './edit_cards';
-import data from './data';
+import defaultQuestions from './default_questions';
 
 class ViewCardApp extends React.Component {
   constructor(props) {
@@ -11,18 +12,17 @@ class ViewCardApp extends React.Component {
     this.state = {
       page: 'home' // or 'edit'
     };
+    this.onEdit = this.onEdit.bind(this);
   }
   setPage(name){
     this.setState({page: name});
   }
+  onEdit(cardId, val){
+    this.props.db.child(cardId).set(val);
+  }
 
   render() {
-    var cards = data;
-    // var cards = [
-    //   // {question: 'What is your name?', answer: 'Sir Lancelot of Camelot'},
-    //   // {question: 'What is your quest?', answer: 'To seek the Holy Grail'},
-    //   // {question: 'What is your favorite color?', answer: 'Blue'},
-    // ];
+    const cardsArray = Object.keys(this.props.cards).map( k => { return this.props.cards[k]; });
     return (
       <div className="container">
         <div className="header">
@@ -39,8 +39,8 @@ class ViewCardApp extends React.Component {
 
         {
           this.state.page === 'home'
-            ? <Flashcard cards={cards} />
-            : <EditCards cards={cards} />
+            ? <Flashcard cards={cardsArray} />
+            : <EditCards cards={this.props.cards} onUpdate={this.onEdit} />
         }
 
         <div className="footer">
@@ -53,4 +53,23 @@ class ViewCardApp extends React.Component {
   }
 }
 
-ReactDOM.render(<ViewCardApp />, document.getElementById('container'));
+let pageId = window.location.hash.substring(1);
+
+if(pageId.length < 1){
+  pageId = (new Date()).getTime().toString();
+  window.location.hash = pageId;
+}
+
+const db = new Firebase('https://pgflashcards.firebaseio.com').child(pageId);
+
+db.once('value', snapshot => {
+  let cards = snapshot.val();
+  if(cards === null){
+    defaultQuestions.forEach(q => {
+      db.push({question: q, answer: ''});
+    });
+  }
+  db.on('value', snapshot => {
+    ReactDOM.render(<ViewCardApp db={db} cards={snapshot.val()} />, document.getElementById('container'));
+  });
+});

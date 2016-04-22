@@ -1,5 +1,6 @@
 import React from 'react';
-import key from 'keyboard-shortcut';
+// import key from 'keyboard-shortcut';
+import Keypress from 'keypress.js'
 
 import SwipeListener from './swipe_listener';
 import Countdown from './countdown';
@@ -13,19 +14,24 @@ export default class Flashcard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {front: true, index: 0};
+    this.keyListener = new Keypress.Listener();
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
     this.flip = this.flip.bind(this);
   }
   componentDidMount(){
-    key('space', this.flip);
-    key('left', this.prev);
-    key('right', this.next);
+    // key('space', this.flip);
+    // key('left', this.prev);
+    // key('right', this.next);
+    this.keyListener.simple_combo('space', this.flip);
+    this.keyListener.simple_combo('left',  this.prev);
+    this.keyListener.simple_combo('right', this.next);
   }
   componentWillUnmount(){
-    key('space', null);
-    key('left', null);
-    key('right', null);
+    this.keyListener.reset();
+    // key('space', null);
+    // key('left', null);
+    // key('right', null);
   }
 
   getCard(){
@@ -35,7 +41,8 @@ export default class Flashcard extends React.Component {
     this.setState({front: !this.state.front});
   }
   cycleBy(amount){
-    this.setState({front: true, index: mod(this.state.index + amount, this.props.cards.length)});
+    const newIndex = mod(this.state.index + amount, this.props.cards.length);
+    this.setState({front: true, index: newIndex});
   }
   next(){
     this.cycleBy(1);
@@ -46,13 +53,9 @@ export default class Flashcard extends React.Component {
 
   render() {
     const card = this.getCard();
-    let classes = 'flashcard';
-    if(!this.state.front){
-      classes += ' back';
-    }
     return (
       <SwipeListener onSwipeLeft={this.next} onSwipeRight={this.prev} onTap={this.flip}>
-        <div className={classes}>
+        <div className={this.state.front ? 'flashcard' : 'flashcard back'}>
           <h1>{this.state.front ? card.question : card.answer}</h1>
           <Countdown start={15} running={this.state.front} />
         </div>
