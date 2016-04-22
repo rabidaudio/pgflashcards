@@ -27,10 +27,10 @@ class ViewCardApp extends React.Component {
       <div className="container">
         <div className="header">
           <ul className="nav nav-pills pull-right">
-            <li className={this.state.page == 'home' ? 'active' : null}>
+            <li className={this.state.page === 'home' ? 'active' : null}>
               <a onClick={()=> this.setPage('home')} href="#">Home</a>
             </li>
-            <li className={this.state.page == 'edit' ? 'active' : null}>
+            <li className={this.state.page === 'edit' ? 'active' : null}>
               <a onClick={()=> this.setPage('edit')} href="#">Edit Cards</a>
             </li>
           </ul>
@@ -38,7 +38,7 @@ class ViewCardApp extends React.Component {
         </div>
 
         {
-          this.state.page == 'home'
+          this.state.page === 'home'
             ? <Flashcard cards={cards} />
             : <EditCards cards={cards} />
         }

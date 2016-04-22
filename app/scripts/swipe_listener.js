@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 
 export default class SwipeListener extends React.Component {
   constructor(props) {
@@ -24,7 +24,7 @@ export default class SwipeListener extends React.Component {
     this.dx = e.touches[0].pageX - this.startx;
     this.dy = e.touches[0].pageY - this.starty;
   }
-  onTouchEnd(e){
+  onTouchEnd(){
     this.swiping = false;
     if(this.dx === null || this.dy === null){
       this.call('onTap');

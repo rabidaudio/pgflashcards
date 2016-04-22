@@ -97,5 +97,5 @@ export default [
   {question: 'What’s new about what you make?', answer: 'Current methods used by dealership service centers for outreach are analogous to polling in comp. Science.  Dealerships check with the driver periodically, hoping to catch them when there’s a problem.  FIXD is like event-based programming, where the dealership can act immediately when a driver has a problem. FIXD allows dealerships to reach out to customers when they need maintenance and repairs instead of waiting for the customer to reach out to them.'},
   {question: 'Why isn’t someone already doing this?', answer: 'Other OBD-II companies made a bet that they could create a marketplace for service by selling directly to consumer.  They were wrong.  '},
   {question: 'How is your product different?', answer: ''},
-  {question: 'Are you open to changing your idea?', answer: 'Yes, we have already made important changes, and we see a direction that we are moving towards.'},
+  {question: 'Are you open to changing your idea?', answer: 'Yes, we have already made important changes, and we see a direction that we are moving towards.'}
 ];
