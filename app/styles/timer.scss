@@ -1,0 +1,12 @@
+.timer {
+  position: absolute;
+  bottom: 0px;
+}
+
+.timer.closetime {
+  color: blue;
+}
+
+.timer.overtime {
+  color: red;
+}
