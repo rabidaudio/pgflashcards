@@ -32,10 +32,12 @@ export default class Flashcard extends React.Component {
   }
   flip(){
     this.setState({front: !this.state.front});
+    this.refs['countdown'].reset();
   }
   cycleBy(amount){
     const newIndex = mod(this.state.index + amount, this.props.cards.length);
     this.setState({front: true, index: newIndex});
+    this.refs['countdown'].reset();
   }
   next(){
     this.cycleBy(1);
@@ -53,7 +55,7 @@ export default class Flashcard extends React.Component {
       <SwipeListener onSwipeLeft={this.next} onSwipeRight={this.prev} onTap={this.flip}>
         <div className={this.state.front ? 'flashcard' : 'flashcard back'}>
           <h1>{this.state.front ? card.question : card.answer}</h1>
-          <Countdown start={15} running={this.state.front} />
+          <Countdown ref='countdown' start={15} running={this.state.front} />
         </div>
       </SwipeListener>
     );

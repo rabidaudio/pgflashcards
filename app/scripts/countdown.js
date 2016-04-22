@@ -3,18 +3,16 @@ import React from 'react';
 export default class Countdown extends React.Component {
   constructor(props){
     super(props);
-    this.reset();
+    this.state = {secondsElapsed: 0};
     this.tick = this.tick.bind(this);
   }
   tick(){
     if(this.props.running){
       this.setState({secondsElapsed: this.state.secondsElapsed + 1});
-    }else{
-      this.reset();
     }
   }
   reset(){
-    this.state = {secondsElapsed: 0};
+    this.setState({secondsElapsed: 0});
   }
   componentDidMount(){
     this.interval = setInterval(this.tick, 1000);
