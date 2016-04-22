@@ -29,7 +29,7 @@ export default class Countdown extends React.Component {
     const remaining = this.props.start - this.state.secondsElapsed;
     if(remaining < 0){
       return (
-        <div className="timer overtime">Over time by {-1 * remaining}!</div>
+        <div className="timer overtime">Out of time!</div>
       );
     }else if(remaining <= 5){
       return (

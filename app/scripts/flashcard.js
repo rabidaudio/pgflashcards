@@ -1,5 +1,4 @@
 import React from 'react';
-// import key from 'keyboard-shortcut';
 import Keypress from 'keypress.js'
 
 import SwipeListener from './swipe_listener';
@@ -20,18 +19,12 @@ export default class Flashcard extends React.Component {
     this.flip = this.flip.bind(this);
   }
   componentDidMount(){
-    // key('space', this.flip);
-    // key('left', this.prev);
-    // key('right', this.next);
     this.keyListener.simple_combo('space', this.flip);
     this.keyListener.simple_combo('left',  this.prev);
     this.keyListener.simple_combo('right', this.next);
   }
   componentWillUnmount(){
     this.keyListener.reset();
-    // key('space', null);
-    // key('left', null);
-    // key('right', null);
   }
 
   getCard(){
